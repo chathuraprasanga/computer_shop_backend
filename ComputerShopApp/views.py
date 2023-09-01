@@ -1,34 +1,55 @@
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.parsers import JSONParser
-from django.http.response import JsonResponse
-from ComputerShopApp.serializers import UserSerializer
-from ComputerShopApp.models import User
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout #adding for user loging authenticate
+from django.contrib import messages #for sent frontend messages
+from .forms import SignUpForm
 
 # Create your views here.
 
-@csrf_exempt
-def userApi(request,id=0):
-    if request.method=='GET':
-        User = User.objects.all()
-        User_serializer=UserSerializer(User,many=True)
-        return JsonResponse(User_serializer.data,safe=False)
-    elif request.method=='POST':
-        User_data=JSONParser().parse(request)
-        User_serializer=UserSerializer(data=User_data)
-        if User_serializer.is_valid():
-            User_serializer.save()
-            return JsonResponse("Added Successfully",safe=False)
-        return JsonResponse("Failed to Add",safe=False)
-    elif request.method=='PUT':
-        User_data=JSONParser().parse(request)
-        User=User.objects.get(id=id)
-        User_serializer=UserSerializer(User,data=User_data)
-        if User_serializer.is_valid():
-            User_serializer.save()
-            return JsonResponse("Updated Successfully",safe=False)
-        return JsonResponse("Failed to Update")
-    elif request.method=='DELETE':
-        User=User.objects.get(id=id)
-        User.delete()
-        return JsonResponse("Deleted Successfully",safe=False)
+# when frontend request home
+def home(request):
+    return render(request, 'home.html',{})
 
+#login user function
+def login_user(request):
+    # check if to see if logging in
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        # ?authenticate
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, "You Have Successfully Logged In.!")
+            return redirect('dashboard')
+        else :
+            messages.error(request,"There Was a Error In Login.!")
+            return redirect('login')
+    else:
+        return render(request, 'login.html',{})
+
+#logout user function
+def logout_user(request):
+    logout(request)
+    messages.success(request, "You Have Successfully Loged Out.!")
+    return redirect('home')
+
+def register_user(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Authenticate and login
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate( username=username,password=password)
+            login(request, user)
+            messages.success(request, "You Have Successfully Logged In.!")
+            return redirect('home')
+    else:
+         form = SignUpForm()
+         return render(request, 'register.html', {'form':form})
+    
+    return render(request, 'register.html', {'form':form})
+
+def dashboard(request):
+    return render(request, 'dashboard.html', {})

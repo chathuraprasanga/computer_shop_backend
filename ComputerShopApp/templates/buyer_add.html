@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Welcome {{user.username}}.!</h1>
+<p>Buyer Add page works.!</p>
+
+<div class="col-md-6 offset-md-3">
+
+    <form method="POST"
+    action="{% url 'buyer_add' %}">
+        {% csrf_token %} 
+
+        {{form.as_p}}
+    
+        <button type="submit" class="btn btn-secondary">Add Buyer</button>
+    
+    </form>
+
+</div>
+
+
+
+{% endblock %}

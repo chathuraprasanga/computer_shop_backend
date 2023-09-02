@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ComputerShopApp.apps.ComputershopappConfig' # imported the app
+    'ComputerShopApp' # imported the app
 ]
 
 MIDDLEWARE = [

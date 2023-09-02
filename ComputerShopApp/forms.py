@@ -1,6 +1,11 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from .models import Buyer
+
+STATUS_CHOICES =[
+    ("ACTIVE","ACTIVE"),("DECATIVE","DEACTIVE")
+]
 
 class SignUpForm(UserCreationForm):
 	
@@ -33,3 +38,21 @@ class SignUpForm(UserCreationForm):
 		self.fields['password2'].label = ''
 		self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'	
 
+
+# Add Buyer Form
+class BuyerAddForm(forms.ModelForm):
+	first_name = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder":"First Name","class":"form-control"}), label="")
+	last_name = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder":"Last Name","class":"form-control"}), label="")
+	organization_name = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder":"Organization Name","class":"form-control"}), label="")
+	email = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder":"Email","class":"form-control"}), label="")
+	phone = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder":"Phone Number","class":"form-control"}), label="")
+	address = forms.CharField(required=True, widget=forms.Textarea(attrs={"placeholder":"Address","class":"form-control"}), label="")
+	zipcode = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder":"Zipcode","class":"form-control"}), label="")
+	city = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder":"City","class":"form-control"}), label="")
+	state = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder":"State","class":"form-control"}), label="")
+	country = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder":"Country","class":"form-control"}), label="")
+	user_status = forms.CharField(required=True, widget=forms.RadioSelect(choices=STATUS_CHOICES))
+
+	class Meta:
+		model = Buyer
+		exclude = ('User', )

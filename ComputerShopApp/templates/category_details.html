@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Welcome {{user.username}}.!</h1>
+<p>Category Details Page Works.!</p>
+
+<div class="card">
+    <h2 class="card-header"><strong>{{category_detail.category_name}}</strong></h2>
+    <div class="card-body">
+      <h5 class="card-title">{{category_detail.category_description}}</h5>
+      <p class="card-text">
+        <strong>Category Status : </strong> {{category_detail.category_status}}
+        
+      </p>
+    </div>
+  </div>
+  <br>
+  <div>
+    <a href="{% url 'categories' %}" class="btn btn-secondary">Go Back</a>
+    <a href="{% url 'category_update' category_detail.id %}" class="btn btn-primary">Edit Category</a>
+    <a href="{% url 'category_delete' category_detail.id %}" class="btn btn-danger">Delete Category</a>
+</div>
+<br>
+       
+    
+{% endblock %}

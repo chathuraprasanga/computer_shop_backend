@@ -60,7 +60,13 @@ urlpatterns = [
     # re path for customer bill api
     re_path('customerbill/([0-9]+)$',views.customerBillApi),
     re_path('customerbill/',views.customerBillApi),
-    
+
+    # developer id = chathura prasanga
+    # date = 09/16/2023
+    # re path for System user
+    re_path('systemuser/([0-9]+)$',views.systemUserApi),
+    re_path('systemuser/',views.systemUserApi),
+    # re_path('abc/([0-9]+)$',views.systemUserRegistrationApi),
 
     path('',views.dashboardApi)
 ]

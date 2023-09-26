@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . models import Category, Brand, Product, Supplier, Customer, SupplierInvoice,SupplierBill,CustomerInvoice, CustomerBill
+from . models import Category, Brand, Product, Supplier, Customer, SupplierInvoice,SupplierBill,CustomerInvoice, CustomerBill,SystemUser
 # Register your models here.
 
 # developer id = chathura prasanga
@@ -20,3 +20,4 @@ admin.site.register(SupplierInvoice)
 admin.site.register(SupplierBill)
 admin.site.register(CustomerInvoice)
 admin.site.register(CustomerBill)
+admin.site.register(SystemUser)

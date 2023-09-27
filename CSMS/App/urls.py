@@ -68,5 +68,10 @@ urlpatterns = [
     re_path('systemuser/',views.systemUserApi),
     # re_path('abc/([0-9]+)$',views.systemUserRegistrationApi),
 
-    path('',views.dashboardApi)
+    # developer id = chathura prasanga
+    # date = 09/16/2023
+    # user login
+    re_path('login/([0-9]+)$',views.userLoginApi),
+
+    path('dashboard/',views.dashboardApi)
 ]

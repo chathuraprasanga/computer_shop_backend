@@ -418,7 +418,13 @@ def systemUserApi(request,id=0):
         system_user = SystemUser.objects.get(id=id)        
         system_user.delete()
         return JsonResponse("Deleted Successfully",safe=False)
-    
 
-
-
+    # developer id = chathura prasanga
+    # date = 09/27/2023
+    # create end point to system user login
+    # functions = only login
+    # (all the two functions are run by same function)
+    @api_view(['GET', 'POST', 'PUT', 'DELETE'])
+    @csrf_exempt
+    def userLoginApi(request):
+        pass

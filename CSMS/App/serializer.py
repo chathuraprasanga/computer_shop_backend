@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Category, Brand, Product, Supplier, Customer, SupplierInvoice, CustomerInvoice, SupplierBill, CustomerBill, SystemUser
+from .models import Category, Brand, Product, Supplier, Customer, SupplierInvoice, CustomerInvoice, SupplierBill, CustomerBill
 
 
 # developer id = chathura prasanga
@@ -92,13 +92,10 @@ class CustomerBillSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-# developer id = chathura prasanga
-# date = 09/15/2023
-# serialize model to connect through api
-class SystemUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SystemUser
-        fields = '__all__'
+
+
+
+
 
 
 

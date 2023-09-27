@@ -1,9 +1,9 @@
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
-from App.serializer import CategorySerializer, BrandSerializer, ProductSerializer, SupplierSerializer, CustomerSerializer, SupplierInvoiceSerializer, SupplierBillSerializer, CustomerBillSerializer, CustomerInvoiceSerializer,SystemUserSerializer    
-from App.models import Category, Brand, Product, Supplier, Customer, SupplierInvoice, SupplierBill, CustomerInvoice, CustomerBill, SystemUser
-from rest_framework.decorators import api_view #permission_classes
+from App.serializer import CategorySerializer, BrandSerializer, ProductSerializer, SupplierSerializer, CustomerSerializer, SupplierInvoiceSerializer, SupplierBillSerializer, CustomerBillSerializer, CustomerInvoiceSerializer
+from App.models import Category, Brand, Product, Supplier, Customer, SupplierInvoice, SupplierBill, CustomerInvoice, CustomerBill
 # from rest_framework.authtoken.models import Token
 # from django.contrib.auth import authenticate
 # from rest_framework.response import Response
@@ -34,8 +34,7 @@ def categoryApi(request,id=0):
             category_serializer.save()
             return JsonResponse("Added Successfully",safe=False)
         return JsonResponse("Failed to Add",safe=False)
-       
-    
+
     elif request.method=='PUT':
         category_data=JSONParser().parse(request)
         category = Category.objects.get(id=id)
@@ -67,7 +66,7 @@ def dashboardApi(request):
     supplierBillCount = SupplierBill.objects.count()
     customerInvoicecount = CustomerInvoice.objects.count()
     customerBillCount = CustomerBill.objects.count()
-    systemUserCount = SystemUser.objects.count()
+
 
     return JsonResponse({
         "categoryCount":categoryCount,
@@ -79,7 +78,6 @@ def dashboardApi(request):
         "supplierBillCount":supplierBillCount,
         "customerInvoiceCount":customerInvoicecount,
         "customerBillCount":customerBillCount,
-        "systemUserCount":systemUserCount
         }, safe=False)
 
 
@@ -103,8 +101,7 @@ def brandApi(request,id=0):
             brand_serializer.save()
             return JsonResponse("Added Successfully",safe=False)
         return JsonResponse("Failed to Add",safe=False)
-       
-    
+
     elif request.method=='PUT':
         brand_data=JSONParser().parse(request)
         brand = Brand.objects.get(id=id)
@@ -140,8 +137,7 @@ def productApi(request,id=0):
             product_serializer.save()
             return JsonResponse("Added Successfully",safe=False)
         return JsonResponse("Failed to Add",safe=False)
-       
-    
+
     elif request.method=='PUT':
         product_data=JSONParser().parse(request)
         product = Product.objects.get(id=id)
@@ -178,8 +174,7 @@ def supplierApi(request,id=0):
             supplier_serializer.save()
             return JsonResponse("Added Successfully",safe=False)
         return JsonResponse("Failed to Add",safe=False)
-       
-    
+
     elif request.method=='PUT':
         supplier_data=JSONParser().parse(request)
         supplier = Supplier.objects.get(id=id)
@@ -216,8 +211,7 @@ def customerApi(request,id=0):
             customer_serializer.save()
             return JsonResponse("Added Successfully",safe=False)
         return JsonResponse("Failed to Add",safe=False)
-       
-    
+
     elif request.method=='PUT':
         customer_data=JSONParser().parse(request)
         customer = Customer.objects.get(id=id)
@@ -253,8 +247,7 @@ def supplierInvoiceApi(request,id=0):
             supplier_invoice_serializer.save()
             return JsonResponse("Added Successfully",safe=False)
         return JsonResponse("Failed to Add",safe=False)
-       
-    
+
     elif request.method=='PUT':
         supplier_invoice_data=JSONParser().parse(request)
         supplier_invoice = SupplierInvoice.objects.get(id=id)
@@ -290,8 +283,7 @@ def supplierBillApi(request,id=0):
             supplier_bill_serializer.save()
             return JsonResponse("Added Successfully",safe=False)
         return JsonResponse("Failed to Add",safe=False)
-       
-    
+
     elif request.method=='PUT':
         supplier_bill_data=JSONParser().parse(request)
         supplier_bill = SupplierBill.objects.get(id=id)
@@ -328,8 +320,7 @@ def customerInvoiceApi(request,id=0):
             customer_invoice_serializer.save()
             return JsonResponse("Added Successfully",safe=False)
         return JsonResponse("Failed to Add",safe=False)
-       
-    
+
     elif request.method=='PUT':
         customer_invoice_data=JSONParser().parse(request)
         customer_invoice = CustomerInvoice.objects.get(id=id)
@@ -366,8 +357,7 @@ def customerBillApi(request,id=0):
             customer_bill_serializer.save()
             return JsonResponse("Added Successfully",safe=False)
         return JsonResponse("Failed to Add",safe=False)
-       
-    
+
     elif request.method=='PUT':
         customer_bill_data=JSONParser().parse(request)
         customer_bill = CustomerInvoice.objects.get(id=id)
@@ -383,48 +373,6 @@ def customerBillApi(request,id=0):
         return JsonResponse("Deleted Successfully",safe=False)
     
 
-# developer id = chathura prasanga
-# date = 09/119/2023
-# create end point to system user
-# functions = get all user, register, take information, edit
-# (all the two functions are run by same function)
-@api_view(['GET','POST','PUT','DELETE'])
-@csrf_exempt
-def systemUserApi(request,id=0):
-    if request.method=='GET':
-        system_user = SystemUser.objects.all()
-        system_user_serializer=SystemUserSerializer(system_user,many=True)
-        return JsonResponse(system_user_serializer.data,safe=False)
-    
-    elif request.method=='POST':
-        system_user_data=JSONParser().parse(request)
-        system_user_serializer=SystemUserSerializer(data=system_user_data)
-        if system_user_serializer.is_valid():
-            system_user_serializer.save()
-            return JsonResponse("Added Successfully",safe=False)
-        return JsonResponse("Failed to Add",safe=False)
-       
-    
-    elif request.method=='PUT':
-        system_user_data=JSONParser().parse(request)
-        system_user = SystemUserSerializer.objects.get(id=id)
-        system_user_serializer = SystemUserSerializer(system_user, data = system_user_data)
-        if system_user_serializer.is_valid():
-            system_user_serializer.save()
-            return JsonResponse("Updated Successfully",safe=False)
-        return JsonResponse("Failed to Update")
-    
-    elif request.method=='DELETE':
-        system_user = SystemUser.objects.get(id=id)        
-        system_user.delete()
-        return JsonResponse("Deleted Successfully",safe=False)
 
-    # developer id = chathura prasanga
-    # date = 09/27/2023
-    # create end point to system user login
-    # functions = only login
-    # (all the two functions are run by same function)
-    @api_view(['GET', 'POST', 'PUT', 'DELETE'])
-    @csrf_exempt
-    def userLoginApi(request):
-        pass
+
+

@@ -160,27 +160,5 @@ class CustomerBill(models.Model):
         return self.created_at+' \t'+self.customer_details+' \t'+self.invoices+' \t'+self.sub_total+' \t'+self.discount+' \t'+self.net_total+' \t'+self.payment_method+' \t'+self.payment_status
 
     
-# developer id = chathura prasanga
-# date = 09/17/2023
-# create model to api user
-class SystemUser(models.Model):
 
-    USER_TYPE = [
-        ("ADMIN","ADMIN"),
-        ("USER","USER")
-    ]
-
-    created_at = models.DateField(auto_now_add=True)
-    system_user_first_name = models.CharField(max_length=255)
-    system_user_last_name = models.CharField(max_length=255)
-    system_user_username = models.CharField(max_length=255, unique=True)
-    system_user_phone = models.CharField(max_length=10)
-    system_user_email = models.CharField(max_length=255, unique=True)
-    system_user_nic_number = models.CharField(max_length=20)
-    system_user_password = models.CharField(max_length=255)
-    system_user_type = models.CharField(max_length=5, choices=USER_TYPE, default="USER")
-    system_user_status =  models.CharField(max_length=8, choices=STATUS_CHOICE, default="DEACTIVE")
-
-    def __str__(self):
-        return self.system_user_user_name
 

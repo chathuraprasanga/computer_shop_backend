@@ -1,7 +1,14 @@
 from django.contrib import admin
-from django.urls import path, re_path
+
+from django.urls import path, re_path,include
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,)
+from rest_framework.routers import DefaultRouter
+from .views import UserViewSet
 
 from App import views
+
 
 urlpatterns = [
     # re_path(r'^category$',views.categoryApi),
@@ -63,7 +70,17 @@ urlpatterns = [
     re_path('customerbill/([0-9]+)$',views.customerBillApi),
     re_path('customerbill/',views.customerBillApi),
 
-
+    # developer id = chathura prasanga
+    # date = 09/27/2023
+    # re path for system user register and login
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
     path('dashboard/',views.dashboardApi)
 ]
+
+router = DefaultRouter()
+router.register('user',UserViewSet, basename='user')
+
+urlpatterns += router.urls

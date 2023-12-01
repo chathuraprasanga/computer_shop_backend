@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from .models import Category, Brand, Product, Supplier, Customer, SupplierInvoice, CustomerInvoice, SupplierBill, CustomerBill
-
+from .models import Category, Brand, Product, Supplier, Customer, SupplierInvoice, CustomerInvoice, SupplierBill, CustomerBill, SystemUser
+from django.contrib.auth import get_user_model
 
 # developer id = chathura prasanga
 # date = 09/14/2023
@@ -92,6 +92,11 @@ class CustomerBillSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SystemUser
+        fields = "__all__"
 
 
 

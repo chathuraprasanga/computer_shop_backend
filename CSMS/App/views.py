@@ -2,14 +2,15 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
-from App.serializer import CategorySerializer, BrandSerializer, ProductSerializer, SupplierSerializer, CustomerSerializer, SupplierInvoiceSerializer, SupplierBillSerializer, CustomerBillSerializer, CustomerInvoiceSerializer
-from App.models import Category, Brand, Product, Supplier, Customer, SupplierInvoice, SupplierBill, CustomerInvoice, CustomerBill
+from App.serializer import CategorySerializer, BrandSerializer, ProductSerializer, SupplierSerializer, CustomerSerializer, SupplierInvoiceSerializer, SupplierBillSerializer, CustomerBillSerializer, CustomerInvoiceSerializer, UserSerializer
+from App.models import Category, Brand, Product, Supplier, Customer, SupplierInvoice, SupplierBill, CustomerInvoice, CustomerBill, SystemUser
 # from rest_framework.authtoken.models import Token
 # from django.contrib.auth import authenticate
 # from rest_framework.response import Response
 # from rest_framework import status
 # from django.core.exceptions import ObjectDoesNotExist
-# from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets
 
 # Create your views here.
 
@@ -372,7 +373,7 @@ def customerBillApi(request,id=0):
         customer_bill.delete()
         return JsonResponse("Deleted Successfully",safe=False)
     
-
-
-
-
+class UserViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = UserSerializer
+    queryset = SystemUser.objects.all()

@@ -1,5 +1,5 @@
 from django.db import models
-# from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
@@ -160,5 +160,7 @@ class CustomerBill(models.Model):
         return self.created_at+' \t'+self.customer_details+' \t'+self.invoices+' \t'+self.sub_total+' \t'+self.discount+' \t'+self.net_total+' \t'+self.payment_method+' \t'+self.payment_status
 
     
-
+class SystemUser(AbstractUser):
+    is_admin = models.BooleanField('Is_admin', default=False)
+    is_user = models.BooleanField('Is_user',default=True)
 
